@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 
-import api from '../../api/api'
+import * as api from '../../api/api'
 
 const initialState = {
   todos: [],
@@ -46,7 +46,7 @@ export const {
   setTodos,
   createTodo,
   editTodo,
-  editTodo
+  deleteTodo
 } = todoSlice.actions
 
 export default todoSlice.reducer
