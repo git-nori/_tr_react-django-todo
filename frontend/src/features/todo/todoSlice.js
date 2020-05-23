@@ -19,7 +19,7 @@ const todoSlice = createSlice({
       state.error = action.payload
     },
     setTodos (state, action) {
-      state.todos = action.payload.todos
+      state.todos = action.payload
     },
     createTodo (state, action) {
       state.todos.push(action.payload)
