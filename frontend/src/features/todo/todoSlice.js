@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 
-import * as api from '../../api/api'
+import * as api from '../../api/todos'
 
 const initialState = {
   todos: [],
