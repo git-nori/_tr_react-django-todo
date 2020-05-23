@@ -1,13 +1,4 @@
-import axios from 'axios'
-
-const API_BASE_URL = 'http://localhost:8080';
-
-const client = axios.create({
-  baseURL: API_BASE_URL,
-  headers: {
-    'Content-Type': 'application/json'
-  },
-});
+import client from '../utils/api'
 
 // Todoを全件取得する
 export function fetchTodos() {
