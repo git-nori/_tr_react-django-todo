@@ -13,7 +13,7 @@ export function createTodo(params){
 
 // Todoを更新する
 export function editTodo(id, params){
-  return client.put(`/api/${id}`, params)
+  return client.put(`/api/${id}/`, params)
 }
 
 // Todoを削除する
