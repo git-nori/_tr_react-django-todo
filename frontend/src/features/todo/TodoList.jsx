@@ -5,7 +5,7 @@ import TodoCard from './TodoCard'
 import './TodoList.css'
 import { Row, Col } from 'react-bootstrap'
 
-const TodoList = ({ todos }) => {
+const TodoList = ({ todos, onDelTodo, onStatusChng }) => {
   const statusTypes = [
     { status: 'Unstarted' },
     { status: 'In Progress' },
@@ -17,8 +17,14 @@ const TodoList = ({ todos }) => {
       .filter(todo => todo.status === types)
       .map(todo => {
         const slbList = statusTypes.filter(statusType => statusType.status !== types)
+        // todo関連のpropsをまとめる
+        const todoProps = {
+          ...todo,
+          deleteTodo: onDelTodo,
+          changeStatus: onStatusChng
+        }
         return (
-          <TodoCard key={todo.id} todo={todo} slbList={slbList} />
+          <TodoCard key={todo.id} todo={todoProps} slbList={slbList} />
         )
       })
   }
