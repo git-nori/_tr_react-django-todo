@@ -25,7 +25,7 @@ const todoSlice = createSlice({
       state.todos.push(action.payload)
     },
     editTodo (state, action) {
-      const newTodo = action.payload.todo
+      const newTodo = action.payload
       state.todos = state.todos.map(todo => {
         if (todo.id === newTodo.id) {
           // 更新対象のタスクの場合
@@ -35,7 +35,7 @@ const todoSlice = createSlice({
       })
     },
     deleteTodo (state, action) {
-      state.todos = state.todos.filter(todo => todo.id !== action.payload.id)
+      state.todos = state.todos.filter(todo => todo.id !== action.payload)
     }
   }
 })
@@ -77,7 +77,7 @@ export const thunkCreateTodo = ({ title, description, status = 'Unstarted' }) =>
 
 // todoの更新
 export const thunkEditTodo = (id, params = {}) => (dispatch, getState) => {
-  const todo = getState().todos.todos.find(task => task.id === id)
+  const todo = getState().todo.todos.find(task => task.id === id)
   const updatedTask = Object.assign({}, todo, params)
   api.editTodo(id, updatedTask)
     .then(res => {
