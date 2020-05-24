@@ -1,61 +1,65 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 
+import {
+  thunkFetchTodos,
+  thunkCreateTodo,
+  thunkDeleteTask,
+  thunkEditTodo
+} from '../../features/todo/todoSlice'
 import TodoList from './TodoList'
 
-import { Container, Row, Col, Button } from 'react-bootstrap'
+import TodoModal from './TodoModal'
 
-const todos = [
-  {
-    "id": 1,
-    "title": "Reduxのお勉強",
-    "description": "特に非同期actionについて",
-    "status": "In Progress"
-  },
-  {
-    "id": 2,
-    "title": "ES6のお勉強",
-    "description": "Promiseについて",
-    "status": "In Progress"
-  },
-  {
-    "id": 3,
-    "title": "朝食",
-    "description": "忘れずに食べること",
-    "status": "Completed"
-  },
-  {
-    "title": "掃除",
-    "description": "要らない本は捨てる",
-    "status": "In Progress",
-    "id": 4
-  },
-  {
-    "title": "草刈り",
-    "description": "夏草に要注意！",
-    "status": "Unstarted",
-    "id": 5
-  }
-]
+import { Container, Row, Col, Alert } from 'react-bootstrap'
 
 const TodoPage = () => {
-  const hdlCrtTodo = () => {
-    
+  const dispatch = useDispatch()
+  const { todos, isLoading, error } = useSelector(state => state.todo)
+
+  const onCrtTodo = (createdTodo) => {
+    dispatch(thunkCreateTodo(createdTodo))
   }
 
-  return (
-    <Container className={'mt-5'}>
+  const onStatusChng = (id, status) => {
+    dispatch(thunkEditTodo(id, status))
+  }
+
+  const onDelTodo = (id) => {
+    dispatch(thunkDeleteTask(id))
+  }
+
+  useEffect(() => {
+    dispatch(thunkFetchTodos())
+  }, [])
+
+  const renderErr = () => {
+    return error && (
       <Row>
         <Col>
-          <Button variant="primary" onClick={hdlCrtTodo}>Create Todo</Button>
+          <Alert variant="danger">{error}</Alert>
         </Col>
       </Row>
-      <Row>
-        <Col>
-          <TodoList todos={todos} />
-        </Col>
-      </Row>
-    </Container>
-  )
+    )
+  }
+
+  return isLoading
+    ? (<div>...Loading</div>)
+    : (
+      <Container className={'mt-5'}>
+        {renderErr()}
+        <Row>
+          <Col>
+            <TodoModal onCrtTodo={onCrtTodo} />
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            <TodoList todos={todos} onDelTodo={onDelTodo} onStatusChng={onStatusChng} />
+          </Col>
+        </Row>
+      </Container>
+    )
 }
 
 export default TodoPage
