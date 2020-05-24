@@ -9,8 +9,7 @@ const TodoCard = ({
     id,
     title,
     description,
-    status,
-    deleteTask,
+    deleteTodo,
     changeStatus
   },
   slbList
@@ -21,12 +20,12 @@ const TodoCard = ({
     ))
   }
 
-  const hdlChngStatus = () => {
-    changeStatus(id, status)
+  const hdlChngStatus = (e) => {
+    changeStatus(id, { status: e.target.value })
   }
 
   const hdlDelBtn = () => {
-    deleteTask(id)
+    deleteTodo(id)
   }
 
   return (
@@ -39,6 +38,7 @@ const TodoCard = ({
       </Card>
       <Form inline>
         <Form.Control as="select" onChange={hdlChngStatus}>
+          <option value=""></option>
           {renderOptionList()}
         </Form.Control>
         <div className="btn-layout">
