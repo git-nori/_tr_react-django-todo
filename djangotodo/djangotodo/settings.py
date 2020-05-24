@@ -47,7 +47,7 @@ INSTALLED_APPS = [
 # 許可ポリシーの設定
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.AllowAny',
+        'rest_framework.simplejwt.authentication.JWTAuthentication',
     ],
 }
 
