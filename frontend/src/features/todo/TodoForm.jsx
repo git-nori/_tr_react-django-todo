@@ -16,6 +16,7 @@ const TodoForm = ({ onClose, createTodo }) => {
       initialValues={{ title: "", description: "", status: "" }}
       validationSchema={validationSchema}
       onSubmit={values => {
+        values.status === "" && delete values.status
         createTodo(values)
       }}
       render={({
