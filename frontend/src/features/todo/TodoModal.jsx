@@ -14,6 +14,7 @@ const TodoModal = ({ onCrtTodo }) => {
 
   const createTodo = (form) => {
     onCrtTodo(form)
+    onClose()
   }
 
   return (
