@@ -13,3 +13,8 @@ ReactDOM.render(
   </React.StrictMode>,
   document.getElementById('root')
 );
+
+// コンポーネント外からstoreをディスパッチできるようにする設定
+export const dispatchStore = (action) =>{
+  store.dispatch(action)
+}
