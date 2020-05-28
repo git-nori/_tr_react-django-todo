@@ -1,7 +1,7 @@
 import axios from 'axios'
-import store from '../app/store'
 import { clear, thunkSetWarnMsg, thunkSetErrMsg } from '../features/util/globalMessageSlice'
 import { thunkLogout } from '../features/auth/userSlice'
+import {dispatchStore} from '../index'
 
 const API_BASE_URL = 'http://localhost:8000';
 
@@ -17,7 +17,7 @@ const api = axios.create({
 // 共通前処理
 api.interceptors.request.use((config) => {
   // メッセージクリア
-  store.dispatch(clear())
+  dispatchStore(clear())
   const token = localStorage.getItem('access')
   if (token) {
     // ヘッダーにauthorizationをセット
@@ -41,7 +41,7 @@ api.interceptors.response.use((res) => {
     case 400:
       // バリデーションエラー
       msg = Object.values(error.response.data)
-      store.dispatch(thunkSetWarnMsg(msg))
+      dispatchStore(thunkSetWarnMsg(msg))
       break;
     case 401:
       // 認証エラー
@@ -53,17 +53,17 @@ api.interceptors.response.use((res) => {
         // 期限切れの場合
         msg = 'ログイン有効期限切れ'
       }
-      store.dispatch(thunkLogout())
-      store.dispatch(thunkSetErrMsg(msg))
+      dispatchStore(thunkLogout())
+      dispatchStore(thunkSetErrMsg(msg))
       break;
     case 403:
       // 権限エラー
       msg = '権限エラーです'
-      store.dispatch(thunkSetWarnMsg(msg))
+      dispatchStore(thunkSetWarnMsg(msg))
       break;
     default:
       msg = '想定外のエラーです'
-      store.dispatch(thunkSetWarnMsg(msg))
+      dispatchStore(thunkSetWarnMsg(msg))
       break;
   }
   return Promise.reject(error)
