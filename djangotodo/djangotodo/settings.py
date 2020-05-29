@@ -46,7 +46,7 @@ INSTALLED_APPS = [
 
 # 許可ポリシーの設定
 REST_FRAMEWORK = {
-    'DEFAULT_PERMISSION_CLASSES': [
+    'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ],
 }
@@ -138,7 +138,7 @@ CORS_ORIGIN_WHITELIST = [
 ]
 
 #Jwtの設定
-SIMPLR_JET = {
+SIMPLE_JWT = {
     'AUTH_HEADER_TYPES': ('JWT',),
     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=30)
 }
