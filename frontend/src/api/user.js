@@ -7,3 +7,7 @@ export function login(params) {
 export function getUser(){
   return client.get('/api/auth/users/me/')
 }
+
+export function signup(params) {
+  return client.post('/api/auth/users/', params)
+}

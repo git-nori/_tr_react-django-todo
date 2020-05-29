@@ -12,6 +12,7 @@ const userSlice = createSlice({
   initialState,
   reducers: {
     setUser (state, action) {
+      console.log(action)
       state.username = action.payload.username
       state.isLoggedIn = true
     },
@@ -36,6 +37,15 @@ export const thunkLogin = ({ username, password }) => dispatch => {
     .then(res => {
       // tokenをlocalStorageに追加
       localStorage.setItem('access', res.data.access)
+      dispatch(setUser({ username }))
+    })
+}
+
+// signup
+export const thunkSignup = ({ username, password }) => dispatch => {
+  api.signup({ username, password })
+    .then(res => {
+      dispatch(thunkLogin({ username, password }))
     })
 }
 
