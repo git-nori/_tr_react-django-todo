@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { clear, thunkSetWarnMsg, thunkSetErrMsg } from '../features/util/globalMessageSlice'
 import { thunkLogout } from '../features/auth/userSlice'
-import {dispatchStore} from '../index'
+import { dispatchStore } from '../index'
 
 const API_BASE_URL = 'http://localhost:8000';
 
@@ -10,7 +10,9 @@ const api = axios.create({
   timeout: 5000,
   headers: {
     'Content-Type': 'application/json',
-    'X-Request-With': 'XMLHttpRequest'
+  },
+  xhrFields: {
+    'X-Requested-With': 'XMLHttpRequest'
   },
 });
 
