@@ -32,20 +32,21 @@ export default userSlice.reducer
 
 // thunk
 // login
-export const thunkLogin = ({ username, password }) => dispatch => {
+export const thunkLogin = ({ username, password }, history) => dispatch => {
   api.login({ username, password })
     .then(res => {
       // tokenをlocalStorageに追加
       localStorage.setItem('access', res.data.access)
       dispatch(setUser({ username }))
+      history.push('/todo')
     })
 }
 
 // signup
-export const thunkSignup = ({ username, password }) => dispatch => {
+export const thunkSignup = ({ username, password }, history) => dispatch => {
   api.signup({ username, password })
     .then(res => {
-      dispatch(thunkLogin({ username, password }))
+      dispatch(thunkLogin({ username, password }, history))
     })
 }
 
