@@ -18,7 +18,7 @@ const userSlice = createSlice({
     },
     clearUser (state) {
       state.username = ''
-      state.isLoggedIn = true
+      state.isLoggedIn = false
     }
   }
 })
