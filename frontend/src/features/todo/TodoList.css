@@ -1,0 +1,7 @@
+.card-layout {
+  display: flex;
+}
+
+.card-block {
+  margin-top: 1rem;
+}
